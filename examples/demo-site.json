@@ -1,0 +1,194 @@
+{
+  "name": "示意网点（县级，日进港 2.5 万票 / 日出港 1.2 万票）",
+  "period": "日",
+  "note": "全部为示意数据，用来演示算法，不代表任何真实网点；用之前换成自己网点的数",
+  "lines": [
+    {
+      "name": "进港线",
+      "tickets": 25000,
+      "unit_price": 1.0,
+      "unit_price_note": "总部结算给网点的平均派费（示意）",
+      "platform_deductions": [
+        {
+          "name": "网点平台费（管理、财务、风险金、投资回报）",
+          "amount": 0.06
+        }
+      ],
+      "amoebas": [
+        {
+          "id": "sort",
+          "name": "进港分拣巴",
+          "hours": 72,
+          "hourly_wage": 22.2,
+          "price": 0.13,
+          "market_price": [
+            0.1,
+            0.14
+          ],
+          "costs": {
+            "分拣设备月供折日": 1000,
+            "电费与耗材": 150
+          },
+          "note": "8 人 × 9 小时；卸车、上件、交叉带分拣、按承包区出格口"
+        },
+        {
+          "id": "shuttle",
+          "name": "接驳车队巴",
+          "hours": 24,
+          "hourly_wage": 25.0,
+          "price": 0.03,
+          "market_price": [
+            0.03,
+            0.05
+          ],
+          "costs": {
+            "油电、路桥、车辆折旧": 450
+          },
+          "note": "3 台车把件送到乡镇和远端承包区"
+        },
+        {
+          "id": "cs",
+          "name": "客服巴（进港）",
+          "hours": 18,
+          "hourly_wage": 20.0,
+          "price": 0.02,
+          "market_price": [
+            0.01,
+            0.03
+          ],
+          "costs": {
+            "系统与话费": 80
+          },
+          "note": "查件、催件、投诉、拦截、改址"
+        },
+        {
+          "id": "deliver",
+          "name": "派送巴（60 个承包区合计）",
+          "hours": 600,
+          "hourly_wage": 20.0,
+          "price": 0.76,
+          "market_price": [
+            0.7,
+            0.85
+          ],
+          "costs": {
+            "驿站代派（40% 进驿站 × 0.40 元）": 4000,
+            "车辆电费与折旧": 1500
+          },
+          "note": "60 人 × 10 小时",
+          "residual": true
+        }
+      ],
+      "shared_costs": [
+        {
+          "name": "场地租金（进港区，按占用面积）",
+          "amount": 900,
+          "drivers": {
+            "sort": 600,
+            "shuttle": 50,
+            "cs": 20,
+            "deliver": 330
+          }
+        },
+        {
+          "name": "系统与巴枪（按账号数）",
+          "amount": 200,
+          "drivers": {
+            "sort": 8,
+            "shuttle": 3,
+            "cs": 2,
+            "deliver": 60
+          }
+        }
+      ]
+    },
+    {
+      "name": "出港线",
+      "tickets": 12000,
+      "unit_price": 0.9,
+      "unit_price_note": "客户平均价 − 面单费 − 中转费 后留在网点的部分（示意）",
+      "platform_deductions": [
+        {
+          "name": "网点平台费（管理、财务、风险金、投资回报）",
+          "amount": 0.06
+        }
+      ],
+      "amoebas": [
+        {
+          "id": "sales",
+          "name": "揽收销售巴",
+          "hours": 60,
+          "hourly_wage": 25.0,
+          "price": 0.64,
+          "market_price": [
+            0.35,
+            0.7
+          ],
+          "costs": {
+            "揽收车辆": 300,
+            "客户维护": 100
+          },
+          "note": "客户经理 + 上门揽收 6 人；拿客户、守价格，是出港线的利润中心",
+          "residual": true
+        },
+        {
+          "id": "out_ops",
+          "name": "出港操作巴",
+          "hours": 45,
+          "hourly_wage": 22.2,
+          "price": 0.1,
+          "market_price": [
+            0.08,
+            0.12
+          ],
+          "costs": {
+            "包材耗材": 120,
+            "称重扫描设备折日": 150
+          },
+          "note": "5 人 × 9 小时；收货、称重扫描、建包、装车"
+        },
+        {
+          "id": "trunk",
+          "name": "支线运输巴",
+          "hours": 16,
+          "hourly_wage": 25.0,
+          "price": 0.08,
+          "market_price": [
+            0.06,
+            0.09
+          ],
+          "costs": {
+            "油费、路桥、折旧": 650
+          },
+          "note": "网点到分拨中心每天 2 车次"
+        },
+        {
+          "id": "cs_out",
+          "name": "客服巴（出港）",
+          "hours": 9,
+          "hourly_wage": 20.0,
+          "price": 0.02,
+          "market_price": [
+            0.01,
+            0.03
+          ],
+          "costs": {
+            "系统与话费": 40
+          }
+        }
+      ],
+      "shared_costs": [
+        {
+          "name": "场地租金（出港区，按占用面积）",
+          "amount": 300,
+          "drivers": {
+            "out_ops": 400,
+            "sales": 50,
+            "trunk": 30,
+            "cs_out": 20
+          }
+        }
+      ]
+    }
+  ]
+}

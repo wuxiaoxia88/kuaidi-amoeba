@@ -1,0 +1,7 @@
+# 真实网点数据只放这里，永不提交
+local-data/
+*.xlsx
+*.xls
+*.db
+.DS_Store
+__pycache__/
