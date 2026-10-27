@@ -52,7 +52,7 @@ def suggest_prices(line: dict, shared: dict[str, float]) -> tuple[dict[str, floa
 
 def bound_by_market(line: dict, eq: dict[str, float]) -> dict[str, float]:
     """稻盛的提醒：均衡价不能脱离「社会常识」。把服务巴的价格夹在外包参考价区间里，
-    差额全部归标了 residual 的利润巴（比如揽收销售巴、派送巴），让它承担经营结果。"""
+    差额全部归标了 residual 的利润巴（比如业务巴、派送巴），让它承担经营结果。"""
     pool = line["unit_price"] - sum(d["amount"] for d in line.get("platform_deductions", []))
     residual = [a["id"] for a in line["amoebas"] if a.get("residual")]
     if not residual:
@@ -98,7 +98,7 @@ def check(line: dict, prices: dict[str, float], rows: list[dict]) -> list[str]:
         m = r["market"]
         if m and not (m[0] <= r["price"] <= m[1]):
             side = "高于" if r["price"] > m[1] else "低于"
-            notes.append(f"{r['name']} 内部价 {r['price']:.3f} {side}外包参考价 {m[0]:.2f}–{m[1]:.2f}："
+            notes.append(f"{r['name']} 内部价 {r['price']:.3f} {side}外包参考价 {m[0]:g}–{m[1]:g}："
                          f"{'先查效率，外包更便宜时要回答「为什么不外包」' if side == '高于' else '这个巴在补贴别人，要么提价，要么承认它是战略投入'}。")
         if r["wage"] and r["per_hour"] < r["wage"]:
             notes.append(f"{r['name']} 单位时间附加值 {r['per_hour']:.1f} 元/时，低于时薪 {r['wage']:.1f}：挣不出自己的工钱。")
@@ -109,7 +109,7 @@ def fmt_table(rows: list[dict], markdown: bool) -> str:
     head = ["巴", "内部价/票", "外包参考", "内部收入", "费用(含分摊)", "附加值", "工时", "单位时间附加值", "时薪", "附加值−人工"]
     body = []
     for r in rows:
-        m = f"{r['market'][0]:.2f}–{r['market'][1]:.2f}" if r["market"] else "—"
+        m = f"{r['market'][0]:g}–{r['market'][1]:g}" if r["market"] else "—"
         body.append([r["name"], f"{r['price']:.3f}", m, f"{r['revenue']:,.0f}", f"{r['cost']:,.0f}",
                      f"{r['value_added']:,.0f}", f"{r['hours']:g}", f"{r['per_hour']:.1f}",
                      f"{r['wage']:.1f}" if r["wage"] else "—",
